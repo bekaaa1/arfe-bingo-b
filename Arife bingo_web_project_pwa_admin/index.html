@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bingo Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <h1>Bingo Game</h1>
+    <p id="userBalance">Balance: $0</p>
+    <button onclick="logout()">Logout</button>
+    <div class="bingo-container">
+        <table id="bingo-board"></table>
+    </div>
+    <button onclick="generateBingo()">Generate Bingo Board</button>
+    <p id="message"></p>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('Service Worker Registered', reg))
+      .catch(err => console.log('Service Worker Registration Failed', err));
+  }
+</script>
+</body>
+</html>
+    
