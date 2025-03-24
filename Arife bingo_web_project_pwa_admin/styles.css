@@ -1,41 +1,73 @@
+:root {
+    --casino-red: #c62828;
+    --casino-gold: #ffd700;
+    --casino-green: #2e7d32;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f9;
+    background: #1a1a1a;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
     padding: 20px;
 }
 
-.login-container, .admin-controls {
-    background-color: #fff;
+header {
+    background: var(--casino-red);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    margin: 20px auto;
-    width: 300px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
+.bingo-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.bingo-cell {
+    background: var(--casino-gold);
+    color: #000;
+    border: 2px solid var(--casino-red);
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.bingo-cell.marked {
+    background: var(--casino-green);
+    color: white;
+}
+
+.controls {
+    margin-top: 30px;
+    text-align: center;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
+    padding: 12px 25px;
+    margin: 0 10px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-#loginMessage, #adminMessage {
-    color: #d9534f;
     font-weight: bold;
+}
+
+.gold-btn { background: var(--casino-gold); }
+.green-btn { background: var(--casino-green); color: white; }
+.blue-btn { background: #1976d2; color: white; }
+
+#status {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.2em;
 }
     
