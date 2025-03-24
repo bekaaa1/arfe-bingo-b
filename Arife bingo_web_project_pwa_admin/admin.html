@@ -1,46 +1,82 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bingo Casino</title>
+    <title>Admin - Bingo Casino</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div class="container">
-        <!-- Casino Header -->
-        <header>
-            <h1>🎰 Bingo Casino</h1>
-            <div class="balance-box">
-                <span>💰 Balance: $</span>
-                <span id="balance">1000</span>
-            </div>
-        </header>
-
-        <!-- Bingo Board -->
-        <div class="bingo-grid" id="board"></div>
-
-        <!-- Casino Controls -->
-        <div class="controls">
-            <button onclick="callNumber()" class="gold-btn">Call Number</button>
-            <button onclick="newGame()" class="green-btn">New Game ($50)</button>
-            <button onclick="checkWin()" class="blue-btn">Check Win</button>
+    <div class="admin-container">
+        <h1>🛠️ Admin Panel</h1>
+        <div class="user-list">
+            <h2>Users</h2>
+            <ul id="user-list"></ul>
         </div>
-
-        <!-- Game Status -->
-        <div id="status"></div>
+        <div class="add-balance">
+            <h2>Add Balance</h2>
+            <form id="add-balance-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" required>
+                
+                <button type="submit">Add Balance</button>
+            </form>
+            <p id="admin-message"></p>
+        </div>
+        <button onclick="logout()">Logout</button>
     </div>
 
-    <script src="app.js"></script>
     <script>
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => console.log('Service Worker Registered'))
-                .catch(err => console.log('Service Worker Error:', err));
+        let users = JSON.parse(localStorage.getItem('users')) || [
+            { username: "user", password: "0805", balance: 1000, role: "user" },
+            { username: "admin", password: "628295@bk", balance: 0, role: "admin" }
+        ];
+
+        // Check if admin is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser || currentUser.role !== "admin") {
+            window.location.href = 'login.html';
+        }
+
+        // Render user list
+        const userList = document.getElementById('user-list');
+        users.forEach(user => {
+            const li = document.createElement('li');
+            li.textContent = `${user.username} - $${user.balance}`;
+            userList.appendChild(li);
+        });
+
+        // Add balance form
+        document.getElementById('add-balance-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const amount = parseInt(document.getElementById('amount').value);
+
+            const user = users.find(u => u.username === username);
+            if (user) {
+                user.balance += amount;
+                localStorage.setItem('users', JSON.stringify(users));
+                document.getElementById('admin-message').textContent = `Added $${amount} to ${username}'s balance!`;
+                // Refresh user list
+                userList.innerHTML = '';
+                users.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = `${user.username} - $${user.balance}`;
+                    userList.appendChild(li);
+                });
+            } else {
+                document.getElementById('admin-message').textContent = "User not found!";
+            }
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
         }
     </script>
 </body>
-</html>  
+</html>
