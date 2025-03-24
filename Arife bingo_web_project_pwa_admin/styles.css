@@ -1,23 +1,24 @@
 :root {
-    --casino-red: #c62828;
+    --casino-red: #d32f2f;
     --casino-gold: #ffd700;
-    --casino-green: #2e7d32;
+    --casino-green: #388e3c;
+    --casino-bg: #2d2d2d;
 }
 
 body {
-    background: #1a1a1a;
+    background: var(--casino-bg);
     color: white;
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 20px;
 }
 
-header {
+.casino-header {
     background: var(--casino-red);
     padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border-radius: 15px;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .bingo-grid {
@@ -26,48 +27,123 @@ header {
     gap: 10px;
     max-width: 600px;
     margin: 0 auto;
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .bingo-cell {
     background: var(--casino-gold);
     color: #000;
-    border: 2px solid var(--casino-red);
-    padding: 20px;
+    border: 3px solid var(--casino-red);
+    padding: 25px;
     text-align: center;
     font-weight: bold;
-    border-radius: 5px;
+    font-size: 1.2em;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.3s;
 }
 
 .bingo-cell.marked {
     background: var(--casino-green);
     color: white;
+    transform: scale(0.95);
 }
 
-.controls {
-    margin-top: 30px;
+.game-controls {
+    margin: 30px 0;
     text-align: center;
 }
 
 button {
-    padding: 12px 25px;
+    padding: 15px 30px;
     margin: 0 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 1.1em;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 .gold-btn { background: var(--casino-gold); }
 .green-btn { background: var(--casino-green); color: white; }
 .blue-btn { background: #1976d2; color: white; }
 
-#status {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 5px;
+#game-status {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
     text-align: center;
+}
+
+#status-message {
     font-size: 1.2em;
+    color: var(--casino-gold);
+    margin: 0;
+}
+
+/* Login Page Styles */
+.login-container, .admin-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    text-align: center;
+}
+
+.login-container h1, .admin-container h1 {
+    color: var(--casino-gold);
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    color: white;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background: var(--casino-green);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-list {
+    margin-top: 20px;
+}
+
+.user-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.user-list li {
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+#login-message, #admin-message {
+    margin-top: 15px;
+    color: var(--casino-red);
 }
     
