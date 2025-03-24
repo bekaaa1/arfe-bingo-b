@@ -3,24 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Bingo Casino</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Login</h2>
-    <form onsubmit="event.preventDefault(); loginUser(document.getElementById('username').value, document.getElementById('password').value);">
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container">
+        <h1>🎰 Bingo Casino Login</h1>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <p id="login-message"></p>
+    </div>
 
-    <h2>Register</h2>
-    <form onsubmit="event.preventDefault(); registerUser(document.getElementById('newUsername').value, document.getElementById('newPassword').value);">
-        <input type="text" id="newUsername" placeholder="New Username" required>
-        <input type="password" id="newPassword" placeholder="New Password" required>
-        <button type="submit">Register</button>
-    </form>
+    <script>
+        const users = [
+            { username: "user", password: "0805", balance: 1000, role: "user" },
+            { username: "admin", password: "628295@bk", balance: 0, role: "admin" }
+        ];
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
-    <script src="auth.js"></script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                if (user.role === "admin") {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } else {
+                document.getElementById('login-message').textContent = "Invalid username or password!";
+            }
+        });
+    </script>
 </body>
 </html>
+
