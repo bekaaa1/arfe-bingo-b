@@ -28,6 +28,22 @@
       .catch(err => console.log('Service Worker Registration Failed', err));
   }
 </script>
+    <script>
+    // Check if user is logged in
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        window.location.href = 'login.html';
+    } else {
+        document.getElementById('logged-in-user').textContent = `Welcome, ${currentUser.username}!`;
+        document.getElementById('balance').textContent = currentUser.balance;
+    }
+
+    // Logout function
+    function logout() {
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+    }
+</script>
 </body>
 </html>
     
